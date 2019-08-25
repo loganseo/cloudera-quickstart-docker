@@ -13,10 +13,13 @@ ADD conf/spark-defaults.conf /etc/spark/conf/spark-defaults.conf
 ENV TERM xterm
 
 RUN chmod +x /tmp/cdh.sh && bash /tmp/cdh.sh
+RUN chmod +x /tmp/cdh_startup.sh
 
 ADD conf/yarn-site.xml /etc/hadoop/conf/yarn-site.xml
-ADD conf/kudu-master.gflag /etc/kudu/conf/
-ADD conf/kudu-tserver.gflag /etc/kudu/conf/
+ADD conf/core-site.xml /etc/hadoop/conf/core-site.xml
+ADD conf/core-site.xml /etc/hadoop-httpfs/conf/core-site.xml
+ADD conf/kudu-master.gflag /etc/kudu/conf/kudu-master.gflag
+ADD conf/kudu-tserver.gflag /etc/kudu/conf/kudu-tserver.gflag
 
 # private and public mapping
 EXPOSE 2181:2181
@@ -31,5 +34,11 @@ EXPOSE 7050:7050
 EXPOSE 8050:8050
 EXPOSE 7051:7051
 EXPOSE 8051:8051
-
-#RUN chmod +x /tmp/cdh_startup.sh && bash /tmp/cdh_startup.sh
+EXPOSE 10000:10000
+EXPOSE 50070:50070
+EXPOSE 14000:14000
+EXPOSE 21000:21000
+EXPOSE 25010:25010
+EXPOSE 25020:25020
+EXPOSE 21050:21050
+EXPOSE 22000:22000
