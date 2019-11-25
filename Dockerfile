@@ -6,20 +6,25 @@ COPY files/jdk-8u181-linux-x64.tar.gz /tmp/jdk-8u181-linux-x64.tar.gz
 ADD installations/cdh.sh /tmp/cdh.sh
 ADD installations/cdh_startup.sh /tmp/cdh_startup.sh
 ADD conf/cloudera.pref /etc/apt/preferences.d/cloudera.pref
-ADD conf/hadoop-env.sh /etc/profile.d/hadoop-env.sh
-ADD conf/spark-env.sh /etc/profile.d/spark-env.sh
-ADD conf/spark-defaults.conf /etc/spark/conf/spark-defaults.conf
+#ADD conf/hadoop-env.sh /etc/profile.d/hadoop-env.sh
+#ADD conf/spark-env.sh /etc/profile.d/spark-env.sh
+#ADD conf/spark-defaults.conf /etc/spark/conf/spark-defaults.conf
 
 ENV TERM xterm
 
 RUN chmod +x /tmp/cdh.sh && bash /tmp/cdh.sh
 RUN chmod +x /tmp/cdh_startup.sh
 
+COPY files/mysql-connector-java-5.1.34-bin.jar /usr/share/java/mysql-connector-java-5.1.34-bin.jar
 ADD conf/yarn-site.xml /etc/hadoop/conf/yarn-site.xml
 ADD conf/core-site.xml /etc/hadoop/conf/core-site.xml
+ADD conf/hadoop-env.sh /etc/hadoop/conf/hadoop-env.sh
+ADD conf/mapred-site.xml /etc/hadoop/mapred-site.xml
+ADD conf/hive-site.xml /etc/hive/hive-site.xml
 ADD conf/core-site.xml /etc/hadoop-httpfs/conf/core-site.xml
 ADD conf/kudu-master.gflag /etc/kudu/conf/kudu-master.gflag
 ADD conf/kudu-tserver.gflag /etc/kudu/conf/kudu-tserver.gflag
+ADD conf/my.cnf /etc/my.cnf
 
 # private and public mapping
 EXPOSE 2181:2181
