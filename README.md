@@ -11,6 +11,7 @@
   - Spark 2.4.0
   - Kudu 1.10.0
   - Hue 4.3.0
+- JDK 1.8.0_181 다운로드 후 files 디렉토리에 추가 필요
 
 ## 1. Docker Build
 ```bash
