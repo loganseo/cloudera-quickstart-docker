@@ -6,9 +6,6 @@ COPY files/jdk-8u181-linux-x64.tar.gz /tmp/jdk-8u181-linux-x64.tar.gz
 ADD installations/cdh.sh /tmp/cdh.sh
 ADD installations/cdh_startup.sh /tmp/cdh_startup.sh
 ADD conf/cloudera.pref /etc/apt/preferences.d/cloudera.pref
-#ADD conf/hadoop-env.sh /etc/profile.d/hadoop-env.sh
-#ADD conf/spark-env.sh /etc/profile.d/spark-env.sh
-#ADD conf/spark-defaults.conf /etc/spark/conf/spark-defaults.conf
 
 ENV TERM xterm
 
