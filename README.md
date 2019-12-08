@@ -1,11 +1,16 @@
 # cloudera-quickstart-docker
-## Components
+
+## Installed Softwares
+- ubuntu 16.04
+- MySQL 5.7.28
 - CDH 6.3.2
-  - Hadoop
-  - Hive
-  - Impala
-  - Spark
-  - Kudu
+  - Zookeeper 3.4.5
+  - Hadoop 3.0.0
+  - Hive 2.1.1
+  - Impala 3.2.0
+  - Spark 2.4.0
+  - Kudu 1.10.0
+  - Hue 4.3.0
 
 ## 1. Docker Build
 ```bash
