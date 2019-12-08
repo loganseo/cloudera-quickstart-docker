@@ -1,6 +1,6 @@
 # cloudera-quickstart-docker
 ## Components
-- CDH 6.2.0
+- CDH 6.3.2
   - Hadoop
   - Hive
   - Impala
