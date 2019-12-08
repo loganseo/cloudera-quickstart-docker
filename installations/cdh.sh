@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 export DEBIAN_FRONTEND=noninteractive
 echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
@@ -12,6 +14,7 @@ sed -i 's/archive.ubuntu.com/ftp.daum.net/g' /etc/apt/sources.list
 apt-get update || die
 apt-get install -y --no-install-recommends software-properties-common apt-transport-https || die
 apt-get install -y -q wget curl vim sudo lsof axel telnet tzdata net-tools || die
+ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 echo '::::::: Installing JDK :::::::'
 mkdir /usr/lib/jvm || die "Failed to create Java directory"
@@ -28,13 +31,14 @@ ln -s /usr/lib/jvm/jdk1.8.0_181 /usr/lib/jvm/java-8-oracle
 echo '::::::: JDK Installed :::::::'
 
 echo '::::::: Installing MySQL :::::::'
-apt-get install -y mysql-server || die
+apt-get install -y mysql-server mysql-client libmysqlclient-dev || die
+usermod -d /var/lib/mysql/ mysql
 echo '::::::: MySQL Installed :::::::'
 
 echo '::::::: Installing Cloudera repositories :::::::'
-curl -s https://archive.cloudera.com/cdh6/6.3.0/ubuntu1604/apt/archive.key | apt-key add -
-echo 'deb [arch=amd64] https://archive.cloudera.com/cdh6/6.3.0/ubuntu1604/apt xenial-cdh6 contrib' > /etc/apt/sources.list.d/cloudera.list
-echo 'deb-src https://archive.cloudera.com/cdh6/6.3.0/ubuntu1604/apt xenial-cdh6 contrib' >> /etc/apt/sources.list.d/cloudera.list
+curl -s https://archive.cloudera.com/cdh6/6.3.2/ubuntu1604/apt/archive.key | apt-key add -
+echo 'deb [arch=amd64] https://archive.cloudera.com/cdh6/6.3.2/ubuntu1604/apt xenial-cdh6 contrib' > /etc/apt/sources.list.d/cloudera.list
+echo 'deb-src https://archive.cloudera.com/cdh6/6.3.2/ubuntu1604/apt xenial-cdh6 contrib' >> /etc/apt/sources.list.d/cloudera.list
 apt-get update || die
 echo '::::::: Cloudera repositories Installed :::::::'
 
@@ -64,14 +68,14 @@ sudo -E -u hdfs hdfs dfs -mkdir -p /user/hadoop || die
 sudo -E -u hdfs hdfs dfs -chown hadoop /user/hadoop || die
 hadoop fs -mkdir -p /tmp || die
 sudo -E -u hive hdfs dfs -mkdir -p /user/hive/warehouse || die
-hadoop fs -chmod g+w /tmp || die
-sudo -E -u hive hdfs dfs -chmod g+w   /user/hive/warehouse || die
+hadoop fs -chmod 777 /tmp || die
+sudo -E -u hive hdfs dfs -chmod 777   /user/hive/warehouse || die
 echo "::::::: Hadoop Installed :::::::"
 
 echo "::::::: Installing Hue, Impala :::::::"
 apt-get -y install hue impala impala-server impala-state-store impala-catalog impala-shell || die
-sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf/hue.ini || die
-sed -i "s/America\/Los\_Angeles/Asia\/Seoul/g" /etc/hue/conf/hue.ini || die
+# sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf/hue.ini || die
+# sed -i "s/America\/Los\_Angeles/Asia\/Seoul/g" /etc/hue/conf/hue.ini || die
 echo "::::::: Hue, Impala Installed :::::::"
 
 echo "::::::: Installing Spark :::::::"

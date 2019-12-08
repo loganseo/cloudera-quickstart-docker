@@ -16,15 +16,15 @@ RUN chmod +x /tmp/cdh.sh && bash /tmp/cdh.sh
 RUN chmod +x /tmp/cdh_startup.sh
 
 COPY files/mysql-connector-java-5.1.34-bin.jar /usr/share/java/mysql-connector-java-5.1.34-bin.jar
+RUN ln -s /usr/share/java/mysql-connector-java-5.1.34-bin.jar /usr/lib/hive/lib/mysql-connector-java.jar
 ADD conf/yarn-site.xml /etc/hadoop/conf/yarn-site.xml
 ADD conf/core-site.xml /etc/hadoop/conf/core-site.xml
 ADD conf/hadoop-env.sh /etc/hadoop/conf/hadoop-env.sh
-ADD conf/mapred-site.xml /etc/hadoop/mapred-site.xml
-ADD conf/hive-site.xml /etc/hive/hive-site.xml
-ADD conf/core-site.xml /etc/hadoop-httpfs/conf/core-site.xml
-ADD conf/kudu-master.gflag /etc/kudu/conf/kudu-master.gflag
-ADD conf/kudu-tserver.gflag /etc/kudu/conf/kudu-tserver.gflag
-ADD conf/my.cnf /etc/my.cnf
+ADD conf/mapred-site.xml /etc/hadoop/conf/mapred-site.xml
+ADD conf/hive-site.xml /etc/hive/conf/hive-site.xml
+ADD conf/httpfs-site.xml /etc/hadoop-httpfs/conf/httpfs-site.xml
+ADD conf/hue.ini /etc/hue/conf/hue.ini
+ADD conf/my.cnf /etc/mysql/conf.d/my.cnf
 
 # private and public mapping
 EXPOSE 2181:2181
