@@ -1,4 +1,0 @@
---fs_wal_dir=/var/lib/kudu/tserver
---fs_data_dirs=/var/lib/kudu/tserver
-
---use_hybrid_clock=false

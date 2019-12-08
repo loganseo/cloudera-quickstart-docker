@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
@@ -13,7 +13,7 @@
 
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://127.0.0.1/metastore?createDatabaseIfNotExist=true</value>
+    <value>jdbc:mysql://127.0.0.1:3306/metastore?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
 
