@@ -17,6 +17,7 @@
 ```bash
 $ docker build -t loganseo/cloudera-quickstart-docker:cdh6.3.2 -f Dockerfile .
 ```
+- Build 된 Docker Image: https://hub.docker.com/r/loganseo/cloudera-quickstart-docker
 
 ## 2. Docker container 실행
 **1) docker Image 확인**
