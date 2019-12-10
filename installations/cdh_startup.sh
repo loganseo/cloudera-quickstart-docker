@@ -41,7 +41,6 @@ service hadoop-mapreduce-historyserver start;
 service hadoop-httpfs start;
 
 echo "::::::: Starting Hive :::::::"
-#nohup hiveserver2 &
 service hive-metastore start;
 service hive-server2 start;
 
@@ -49,8 +48,9 @@ echo "::::::: Starting Impala :::::::"
 bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done';
 
 echo "::::::: Starting Hue :::::::"
-/usr/lib/hue/build/env/bin/hue syncdb --noinput;
-/usr/lib/hue/build/env/bin/hue migrate;
+mysql -h localhost -u root -pmysql < /tmp/hue_mysql.sql
+# /usr/lib/hue/build/env/bin/hue syncdb --noinput;
+# /usr/lib/hue/build/env/bin/hue migrate;
 service hue start;
 
 echo "::::::: Starting Kudu :::::::"

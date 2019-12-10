@@ -5,12 +5,14 @@ FROM ubuntu:16.04
 COPY files/jdk-8u181-linux-x64.tar.gz /tmp/jdk-8u181-linux-x64.tar.gz
 ADD installations/cdh.sh /tmp/cdh.sh
 ADD installations/cdh_startup.sh /tmp/cdh_startup.sh
+ADD files/hue_mysql.sql /tmp/hue_mysql.sql
 ADD conf/cloudera.pref /etc/apt/preferences.d/cloudera.pref
 
 ENV TERM xterm
 
 RUN chmod +x /tmp/cdh.sh && bash /tmp/cdh.sh
 RUN chmod +x /tmp/cdh_startup.sh
+RUN chmod +x /tmp/hue_mysql.sql
 
 COPY files/mysql-connector-java-5.1.34-bin.jar /usr/share/java/mysql-connector-java-5.1.34-bin.jar
 RUN ln -s /usr/share/java/mysql-connector-java-5.1.34-bin.jar /usr/lib/hive/lib/mysql-connector-java.jar
