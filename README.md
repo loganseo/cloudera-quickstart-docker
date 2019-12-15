@@ -13,6 +13,10 @@
   - Hue 4.3.0
 - JDK 1.8.0_181 다운로드 후 files 디렉토리에 추가 필요
 
+## (Recommended) Docker Engine Spec. 
+- CPUs: 4
+- Memory: 6 GiB
+
 ## 1. Docker Build
 ```bash
 $ docker build -t loganseo/cloudera-quickstart-docker:cdh6.3.2 -f Dockerfile .
