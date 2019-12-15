@@ -50,7 +50,7 @@ service zookeeper-server start || die "Failed to start zookeeper-server"
 service zookeeper-server stop || die "Failed to stop zookeeper-server"
 echo "::::::: Zookeeper Installed :::::::"
 
-echo "::::::: Installing Hadoop :::::::"
+echo "::::::: Installing Hadoop, Hive :::::::"
 apt-get -y install hadoop-conf-pseudo hadoop-httpfs || die
 sudo -E -u hdfs hdfs namenode -format || die
 bash -c 'for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo -E service $x start ; done' || die
@@ -66,16 +66,14 @@ service hadoop-mapreduce-historyserver start || die
 
 sudo -E -u hdfs hdfs dfs -mkdir -p /user/hadoop || die
 sudo -E -u hdfs hdfs dfs -chown hadoop /user/hadoop || die
-hadoop fs -mkdir -p /tmp || die
+sudo -E -u hdfs hdfs dfs -mkdir -p /tmp || die
+sudo -E -u hdfs hdfs dfs -chmod 777 /tmp || die
 sudo -E -u hive hdfs dfs -mkdir -p /user/hive/warehouse || die
-hadoop fs -chmod 777 /tmp || die
-sudo -E -u hive hdfs dfs -chmod 777   /user/hive/warehouse || die
-echo "::::::: Hadoop Installed :::::::"
+sudo -E -u hive hdfs dfs -chmod 777 /user/hive/warehouse || die
+echo "::::::: Hadoop, Hive Installed :::::::"
 
 echo "::::::: Installing Hue, Impala :::::::"
 apt-get -y install hue impala impala-server impala-state-store impala-catalog impala-shell || die
-# sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf/hue.ini || die
-# sed -i "s/America\/Los\_Angeles/Asia\/Seoul/g" /etc/hue/conf/hue.ini || die
 echo "::::::: Hue, Impala Installed :::::::"
 
 echo "::::::: Installing Spark :::::::"
